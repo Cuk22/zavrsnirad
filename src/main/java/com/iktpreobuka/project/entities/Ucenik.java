@@ -21,18 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Ucenik")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Ucenik {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Ucenik extends Korisnik {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	@Column(nullable = false)
-	private String ime;
-	@Column(nullable = false)
-	private String prezime;
-	@Version
-	private Integer version;
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "roditelj")
 	private Roditelj roditelj;
@@ -40,45 +31,18 @@ public class Ucenik {
 	@JoinColumn(name = "razred")
 	private Razred razred;
 	@JsonIgnore
-	@OneToMany(mappedBy = "ucenik", fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
+	@OneToMany(mappedBy = "ucenik", fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	private List<Ocena> ocena = new ArrayList<>();
 
 	public Ucenik() {
 		super();
 	}
 
-	public Ucenik(Integer id, String ime, String prezime, Roditelj roditelj, Razred razred) {
+	public Ucenik(Roditelj roditelj, Razred razred, List<Ocena> ocena) {
 		super();
-		this.id = id;
-		this.ime = ime;
-		this.prezime = prezime;
 		this.roditelj = roditelj;
 		this.razred = razred;
-
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getIme() {
-		return ime;
-	}
-
-	public void setIme(String ime) {
-		this.ime = ime;
-	}
-
-	public String getPrezime() {
-		return prezime;
-	}
-
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+		this.ocena = ocena;
 	}
 
 	public Roditelj getRoditelj() {
@@ -95,6 +59,14 @@ public class Ucenik {
 
 	public void setRazred(Razred razred) {
 		this.razred = razred;
+	}
+
+	public List<Ocena> getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(List<Ocena> ocena) {
+		this.ocena = ocena;
 	}
 
 }

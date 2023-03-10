@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Razred")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Razred {
 
 	@Id
@@ -27,8 +27,6 @@ public class Razred {
 	private Integer id;
 	@Column(nullable = false)
 	private String naziv;
-	@Column(nullable = false)
-	private Odeljenje odeljenje;
 	@Version
 	private Integer version;
 	@JsonIgnore
@@ -42,11 +40,10 @@ public class Razred {
 		super();
 	}
 
-	public Razred(Integer id, String naziv, Odeljenje odeljenje, List<Predmet> predmet, List<Ucenik> ucenik) {
+	public Razred(Integer id, String naziv, List<Predmet> predmet, List<Ucenik> ucenik) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.odeljenje = odeljenje;
 		this.predmet = predmet;
 		this.ucenik = ucenik;
 	}
@@ -65,14 +62,6 @@ public class Razred {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-	}
-
-	public Odeljenje getOdeljenje() {
-		return odeljenje;
-	}
-
-	public void setOdeljenje(Odeljenje odeljenje) {
-		this.odeljenje = odeljenje;
 	}
 
 	public List<Predmet> getPredmet() {
